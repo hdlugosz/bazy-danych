@@ -10,7 +10,7 @@ CREATE SCHEMA rozliczenia;
 
 -- 3. Dodaj do schematu rozliczenia tabele (pracownicy, godziny, pensje, premie)
 
-CREATE TABLE rozliczenia.pracownicy(id_pracownika integer PRIMARY KEY NOT NULL, imie varchar(20) NOT NULL, nazwisko varchar(20) NOT NULL, adres varchar(60), telefon varchar(12));
+CREATE TABLE rozliczenia.pracownicy(id_pracownika integer PRIMARY KEY NOT NULL, imie varchar(20) NOT NULL, nazwisko varchar(20) NOT NULL, adres varchar(60), telefon varchar(15));
 
 CREATE TABLE rozliczenia.godziny(id_godziny integer PRIMARY KEY NOT NULL, _data date NOT NULL, liczba_godzin integer NOT NULL, id_pracownika integer NOT NULL);
 
