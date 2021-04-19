@@ -1,4 +1,4 @@
--- 1. Utwórz now¹ bazê danych nazywaj¹c j¹ firma
+-- 1. UtwÃ³rz nowÄ… bazÄ™ danych nazywajÄ…c jÄ… firma
 
 CREATE DATABASE firma;
 
@@ -46,19 +46,19 @@ ALTER TABLE ksiegowosc.wynagrodzenie
 ADD FOREIGN KEY (id_premii) REFERENCES ksiegowosc.premie(id_premii);
 
 
--- 5. Wype³nij ka¿d¹ tabelê 10. rekordami.
+-- 5. WypeÅ‚nij kaÅ¼dÄ… tabelÄ™ 10. rekordami.
 
 INSERT INTO ksiegowosc.pracownicy VALUES
 (1, 'Aleksander', 'Wilk', 'ul. Zamkowa 11', '695273827'),
-(2, 'Kazimiera', 'Socha', 'ul. Waryñskiego 1b', '508704262'),
-(3, 'Celina', 'Soko³owska', NULL, NULL),
+(2, 'Kazimiera', 'Socha', 'ul. WaryÅ„skiego 1b', '508704262'),
+(3, 'Celina', 'SokoÅ‚owska', NULL, NULL),
 (4, 'Oksana', 'Wolska', 'ul. Witosa 6a', '552801976'),
-(5, 'Brygida', 'Kozio³', 'ul. Konopnickiej 1', NULL),
-(6, 'Bogus³aw', 'Konieczny', 'ul. Bema 5', '702001928'),
-(7, 'Wioletta', '£ukasik', 'ul. Obwodowa 136', '826491672'),
+(5, 'Brygida', 'KozioÅ‚', 'ul. Konopnickiej 1', NULL),
+(6, 'BogusÅ‚aw', 'Konieczny', 'ul. Bema 5', '702001928'),
+(7, 'Wioletta', 'Åukasik', 'ul. Obwodowa 136', '826491672'),
 (8, 'Natalia', 'Pietrzak', 'ul. Robotnicza 172c', '684927722'),
 (9, 'Arleta', 'Kaczmarczyk', 'ul. Bronowicka 12c', '725688200'),
-(10, 'Zdzis³aw', 'Krupa', NULL, '649267399');
+(10, 'ZdzisÅ‚aw', 'Krupa', NULL, '649267399');
 
 INSERT INTO ksiegowosc.godziny VALUES
 (1, '2019-10-15', 160, 1),
@@ -73,14 +73,14 @@ INSERT INTO ksiegowosc.godziny VALUES
 (10, '2019-11-05', 240, 10);
 
 INSERT INTO ksiegowosc.premie VALUES
-(1, 'efektywnoœciowa', 280),
+(1, 'efektywnoÅ›ciowa', 280),
 (2, 'uznaniowa', 800),
 (3, 'motywacyjna', 2.56),
 (4, 'zadaniowa', 67),
 (5, 'zadaniowa', 67),
 (6, NULL, 14000),
 (7, NULL, NULL),
-(8, 'udzia³owa', 821),
+(8, 'udziaÅ‚owa', 821),
 (9, 'roczna', 560.90),
 (10, NULL, 12.50);
 
@@ -108,6 +108,144 @@ INSERT INTO ksiegowosc.wynagrodzenie VALUES
 (9, '2019-11-21', 9, 9, 9, 9),
 (10, '2019-11-23', 10, 10, 10, 10);
 
--- 6. Wykonaj nastêpuj¹ce zapytania: 
+-- 6. Wykonaj nastÄ™pujÄ…ce zapytania: 
 
--- a) Wyœwietl tylko id pracownika oraz jego nazwisko.SELECT id_pracownika, nazwisko FROM ksiegowosc.pracownicy-- b) Wyœwietl id pracowników, których p³aca jest wiêksza ni¿ 3000.SELECT id_pracownika, kwota	FROM ksiegowosc.wynagrodzenie AS wynagrodzenie		JOIN ksiegowosc.pensje AS pensje			ON wynagrodzenie.id_pensji = pensje.id_pensji	WHERE kwota > 3000-- c)  Wyœwietl id pracowników nieposiadaj¹cych premii, których p³aca jest wiêksza ni¿ 2000.SELECT id_pracownika, pensje.kwota AS pensje_kwota, premie.kwota AS premie_kwota	FROM ksiegowosc.wynagrodzenie AS wynagrodzenie		JOIN ksiegowosc.pensje AS pensje			ON wynagrodzenie.id_pensji=pensje.id_pensji		JOIN ksiegowosc.premie AS premie			ON wynagrodzenie.id_premii = premie.id_premii	WHERE pensje.kwota > 2000 AND premie.kwota IS NULL-- d) Wyœwietl pracowników, których pierwsza litera imienia zaczyna siê na literê ‘B’.SELECT imie, nazwisko 	FROM ksiegowosc.pracownicy		WHERE imie LIKE 'B%'-- e) Wyœwietl pracowników, których nazwisko zawiera literê ‘o’ oraz imiê koñczy siê na literê ‘a’.SELECT imie, nazwisko 	FROM ksiegowosc.pracownicy		WHERE nazwisko LIKE '%o%'AND imie LIKE '%a'-- f) Wyœwietl imiê i nazwisko pracowników oraz liczbê ich nadgodzin, przyjmuj¹c, i¿ standardowy czas pracy to 160 h miesiêcznie. SELECT imie, nazwisko, (liczba_godzin-160) AS liczba_nadgodzin	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.godziny AS godziny			ON pracownicy.id_pracownika = godziny.id_pracownika	WHERE godziny.liczba_godzin > 160-- g) Wyœwietl imiê i nazwisko pracowników, których pensja zawiera siê w przedziale 3000 – 5000 PLN.SELECT imie, nazwisko, pensje.kwota	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika		JOIN ksiegowosc.pensje AS pensje			ON wynagrodzenie.id_pensji = pensje.id_pensji	WHERE kwota >= 3000 AND kwota <= 5000-- drugi sposob SELECT imie, nazwisko, pensje.kwota	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika		JOIN ksiegowosc.pensje AS pensje			ON wynagrodzenie.id_pensji = pensje.id_pensji	WHERE kwota BETWEEN 3000 AND 5000	-- h) Wyœwietl imiê i nazwisko pracowników, którzy pracowali w nadgodzinach i nie otrzymali premii.SELECT imie, nazwisko, liczba_godzin - 160 AS liczba_nadgodzin, premie.kwota AS wysokosc_premii	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.godziny AS godziny			ON pracownicy.id_pracownika = godziny.id_pracownika		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie			ON wynagrodzenie.id_pracownika = pracownicy.id_pracownika		JOIN ksiegowosc.premie AS premie			ON premie.id_premii = wynagrodzenie.id_premii		WHERE godziny.liczba_godzin > 160 AND premie.kwota IS NULL-- i) Uszereguj pracowników wed³ug pensji.SELECT imie, nazwisko, pensje.kwota	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika		JOIN ksiegowosc.pensje AS pensje			ON pensje.id_pensji = wynagrodzenie.id_pensji		ORDER BY pensje.kwota -- j) Uszereguj pracowników wed³ug pensji i premii malej¹co. (Jesli byloby kilka takich samych kwot pensji, wtedy sortowaloby po wysokosci premii malejaco)SELECT imie, nazwisko, pensje.kwota AS kwota_pensji, premie.kwota kwota_premii	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika		JOIN ksiegowosc.pensje AS pensje			ON pensje.id_pensji = wynagrodzenie.id_pensji		JOIN ksiegowosc.premie AS premie			ON wynagrodzenie.id_premii = premie.id_premii	ORDER BY pensje.kwota DESC, premie.kwota DESC-- k) Zlicz i pogrupuj pracowników wed³ug pola ‘stanowisko’.SELECT COUNT(*) AS liczba_pracownikow, stanowisko	FROM ksiegowosc.pensje		GROUP BY stanowisko-- l) Policz œredni¹, minimaln¹ i maksymaln¹ p³acê dla stanowiska ‘kierowca’ SELECT AVG(pensje.kwota) AS srednia_pensja, MIN(pensje.kwota) AS minimalna_pensja, MAX(pensje.kwota) AS maksymalna_pensja	FROM ksiegowosc.pensje AS pensje	GROUP BY stanowisko	HAVING stanowisko = 'kierowca' --HAVING to takie WHERE dla pogrupowanych danych-- m) Policz sumê wszystkich wynagrodzeñ.SELECT SUM(pensje.kwota) AS suma_pensji	FROM ksiegowosc.pensje AS pensje-- n) Policz sumê wynagrodzeñ w ramach danego stanowiska.SELECT SUM(pensje.kwota) AS suma_pensji, pensje.stanowisko	FROM ksiegowosc.pensje AS pensje	GROUP BY stanowisko-- o) Wyznacz liczbê premii przyznanych dla pracowników danego stanowiskaSELECT COUNT(premie.kwota), stanowisko	FROM ksiegowosc.premie AS premie		JOIN ksiegowosc.pensje AS pensje			ON premie.id_premii = pensje.id_pensji	GROUP BY stanowisko-- p) Usuñ wszystkich pracowników maj¹cych pensjê mniejsz¹ ni¿ 4000 z³.-- to nie dziala, chyba przez to ze wystepuja polaczenia miedzy tabelami, probowalem zrobic z DELETE CASCADE ale sie nie udaloDELETE pracownicy	FROM ksiegowosc.pracownicy AS pracownicy		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie			ON  wynagrodzenie.id_pracownika = pracownicy.id_pracownika		JOIN ksiegowosc.pensje AS pensje			ON pensje.id_pensji = wynagrodzenie.id_pensji	WHERE pensje.kwota < 4000
+-- a) WyÅ›wietl tylko id pracownika oraz jego nazwisko.
+
+SELECT id_pracownika, nazwisko FROM ksiegowosc.pracownicy
+
+-- b) WyÅ›wietl id pracownikÃ³w, ktÃ³rych pÅ‚aca jest wiÄ™ksza niÅ¼ 3000.
+
+SELECT id_pracownika, kwota
+	FROM ksiegowosc.wynagrodzenie AS wynagrodzenie
+		JOIN ksiegowosc.pensje AS pensje
+			ON wynagrodzenie.id_pensji = pensje.id_pensji
+	WHERE kwota > 3000
+
+-- c)  WyÅ›wietl id pracownikÃ³w nieposiadajÄ…cych premii, ktÃ³rych pÅ‚aca jest wiÄ™ksza niÅ¼ 2000.
+
+SELECT id_pracownika, pensje.kwota AS pensje_kwota, premie.kwota AS premie_kwota
+	FROM ksiegowosc.wynagrodzenie AS wynagrodzenie
+		JOIN ksiegowosc.pensje AS pensje
+			ON wynagrodzenie.id_pensji=pensje.id_pensji
+		JOIN ksiegowosc.premie AS premie
+			ON wynagrodzenie.id_premii = premie.id_premii
+	WHERE pensje.kwota > 2000 AND premie.kwota IS NULL
+
+-- d) WyÅ›wietl pracownikÃ³w, ktÃ³rych pierwsza litera imienia zaczyna siÄ™ na literÄ™ â€˜Bâ€™.
+
+SELECT imie, nazwisko 
+	FROM ksiegowosc.pracownicy
+		WHERE imie LIKE 'B%'
+
+-- e) WyÅ›wietl pracownikÃ³w, ktÃ³rych nazwisko zawiera literÄ™ â€˜oâ€™ oraz imiÄ™ koÅ„czy siÄ™ na literÄ™ â€˜aâ€™.
+
+SELECT imie, nazwisko 
+	FROM ksiegowosc.pracownicy
+		WHERE nazwisko LIKE '%o%'AND imie LIKE '%a'
+
+-- f) WyÅ›wietl imiÄ™ i nazwisko pracownikÃ³w oraz liczbÄ™ ich nadgodzin, przyjmujÄ…c, iÅ¼ standardowy czas pracy to 160 h miesiÄ™cznie. 
+
+SELECT imie, nazwisko, (liczba_godzin-160) AS liczba_nadgodzin
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.godziny AS godziny
+			ON pracownicy.id_pracownika = godziny.id_pracownika
+	WHERE godziny.liczba_godzin > 160
+
+-- g) WyÅ›wietl imiÄ™ i nazwisko pracownikÃ³w, ktÃ³rych pensja zawiera siÄ™ w przedziale 3000 â€“ 5000 PLN.
+
+SELECT imie, nazwisko, pensje.kwota
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie
+			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
+		JOIN ksiegowosc.pensje AS pensje
+			ON wynagrodzenie.id_pensji = pensje.id_pensji
+	WHERE kwota >= 3000 AND kwota <= 5000
+
+-- drugi sposob 
+SELECT imie, nazwisko, pensje.kwota
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie
+			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
+		JOIN ksiegowosc.pensje AS pensje
+			ON wynagrodzenie.id_pensji = pensje.id_pensji
+	WHERE kwota BETWEEN 3000 AND 5000
+	
+-- h) WyÅ›wietl imiÄ™ i nazwisko pracownikÃ³w, ktÃ³rzy pracowali w nadgodzinach i nie otrzymali premii.
+
+SELECT imie, nazwisko, liczba_godzin - 160 AS liczba_nadgodzin, premie.kwota AS wysokosc_premii
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.godziny AS godziny
+			ON pracownicy.id_pracownika = godziny.id_pracownika
+		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie
+			ON wynagrodzenie.id_pracownika = pracownicy.id_pracownika
+		JOIN ksiegowosc.premie AS premie
+			ON premie.id_premii = wynagrodzenie.id_premii
+		WHERE godziny.liczba_godzin > 160 AND premie.kwota IS NULL
+
+-- i) Uszereguj pracownikÃ³w wedÅ‚ug pensji.
+
+SELECT imie, nazwisko, pensje.kwota
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie
+			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
+		JOIN ksiegowosc.pensje AS pensje
+			ON pensje.id_pensji = wynagrodzenie.id_pensji
+		ORDER BY pensje.kwota 
+
+-- j) Uszereguj pracownikÃ³w wedÅ‚ug pensji i premii malejÄ…co. (Jesli byloby kilka takich samych kwot pensji, wtedy sortowaloby po wysokosci premii malejaco)
+
+SELECT imie, nazwisko, pensje.kwota AS kwota_pensji, premie.kwota kwota_premii
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie
+			ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
+		JOIN ksiegowosc.pensje AS pensje
+			ON pensje.id_pensji = wynagrodzenie.id_pensji
+		JOIN ksiegowosc.premie AS premie
+			ON wynagrodzenie.id_premii = premie.id_premii
+	ORDER BY pensje.kwota DESC, premie.kwota DESC
+
+-- k) Zlicz i pogrupuj pracownikÃ³w wedÅ‚ug pola â€˜stanowiskoâ€™.
+
+SELECT COUNT(*) AS liczba_pracownikow, stanowisko
+	FROM ksiegowosc.pensje
+		GROUP BY stanowisko
+
+-- l) Policz Å›redniÄ…, minimalnÄ… i maksymalnÄ… pÅ‚acÄ™ dla stanowiska â€˜kierowcaâ€™ 
+
+SELECT AVG(pensje.kwota) AS srednia_pensja, MIN(pensje.kwota) AS minimalna_pensja, MAX(pensje.kwota) AS maksymalna_pensja
+	FROM ksiegowosc.pensje AS pensje
+	GROUP BY stanowisko
+	HAVING stanowisko = 'kierowca' --HAVING to takie WHERE dla pogrupowanych danych
+
+-- m) Policz sumÄ™ wszystkich wynagrodzeÅ„.
+
+SELECT SUM(pensje.kwota) AS suma_pensji
+	FROM ksiegowosc.pensje AS pensje
+
+-- n) Policz sumÄ™ wynagrodzeÅ„ w ramach danego stanowiska.
+
+SELECT SUM(pensje.kwota) AS suma_pensji, pensje.stanowisko
+	FROM ksiegowosc.pensje AS pensje
+	GROUP BY stanowisko
+
+-- o) Wyznacz liczbÄ™ premii przyznanych dla pracownikÃ³w danego stanowiska
+
+SELECT COUNT(premie.kwota), stanowisko
+	FROM ksiegowosc.premie AS premie
+		JOIN ksiegowosc.pensje AS pensje
+			ON premie.id_premii = pensje.id_pensji
+	GROUP BY stanowisko
+
+-- p) UsuÅ„ wszystkich pracownikÃ³w majÄ…cych pensjÄ™ mniejszÄ… niÅ¼ 4000 zÅ‚.
+
+-- to nie dziala, chyba przez to ze wystepuja polaczenia miedzy tabelami, probowalem zrobic z DELETE CASCADE ale sie nie udalo
+DELETE pracownicy
+	FROM ksiegowosc.pracownicy AS pracownicy
+		JOIN ksiegowosc.wynagrodzenie AS wynagrodzenie
+			ON  wynagrodzenie.id_pracownika = pracownicy.id_pracownika
+		JOIN ksiegowosc.pensje AS pensje
+			ON pensje.id_pensji = wynagrodzenie.id_pensji
+	WHERE pensje.kwota < 4000
+
+
