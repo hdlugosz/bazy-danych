@@ -98,7 +98,6 @@ INSERT INTO ksiegowosc.wynagrodzenie VALUES
 (9, '2019-11-21', 9, 9, 9, 9),
 (10, '2019-11-23', 10, 10, 10, 10);
 
-
 -- a) Zmodyfikuj numer telefonu w tabeli pracownicy, dodaj¹c do niego kierunkowy dla Polski w nawiasie (+48)UPDATE ksiegowosc.pracownicySET telefon = CONCAT('(+48)', telefon)WHERE telefon is not NULLSELECT * FROM ksiegowosc.pracownicy-- b) Zmodyfikuj atrybut telefon w tabeli pracownicy tak, aby numer oddzielony by³ myœlnikami wg wzoru: ‘555-222-333’ 
 UPDATE ksiegowosc.pracownicySET telefon = CONCAT(SUBSTRING(telefon, 1,8), '-',SUBSTRING(telefon, 9,3), '-', SUBSTRING(telefon, 10,3))WHERE telefon is not NULLSELECT * FROM ksiegowosc.pracownicy-- c) Wyœwietl dane pracownika, którego nazwisko jest najd³u¿sze, u¿ywaj¹c du¿ych literSELECT TOP 1 UPPER(imie), UPPER(nazwisko), UPPER(adres), telefon
 FROM ksiegowosc.pracownicy
